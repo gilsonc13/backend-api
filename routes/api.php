@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('customers', function() {
+    return Customer::all();
 });
+
+Route::post('customers', function(Request $request) {
+    return Customer::create($request->all());
+});
+
+Route::put('customers/{id}', function(Request $request, $id) {
+    $customer = Customer::findOrFail($id);
+    $customer->update($request->all());
+    return $customer;
+});
+
+Route::delete('customers/{id}', function($id) {
+    Customer::find($id)->delete();
+    return 204;
+});
+
