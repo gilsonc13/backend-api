@@ -17,12 +17,12 @@ class CreateCustomersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('phone');
-            $table->integer('document');
-            $table->string('street');
-            $table->string('city');
-            $table->string('zip_code');
-            $table->string('state');
-            $table->string('complement');
+            $table->string('document');
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->string('state')->nullable();
+            $table->string('complement')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
