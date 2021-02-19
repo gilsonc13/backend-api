@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Customer;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,22 +19,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('customers', function() {
-    return Customer::all();
-});
-
-Route::post('customers', function(Request $request) {
-    return Customer::create($request->all());
-});
-
-Route::put('customers/{id}', function(Request $request, $id) {
-    $customer = Customer::findOrFail($id);
-    $customer->update($request->all());
-    return $customer;
-});
-
-Route::delete('customers/{id}', function($id) {
-    Customer::find($id)->delete();
-    return 204;
-});
-
+// Route::get('customers', 'CustomerController@index');
+Route::get('customers', [CustomerController::class, 'index']);
+Route::post('customers', [CustomerController::class, 'store']);
+Route::put('customers/{customer}', [CustomerController::class, 'update']);
+Route::delete('customers/{customer}', [CustomerController::class, 'delete']);
